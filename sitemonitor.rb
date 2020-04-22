@@ -70,7 +70,7 @@ class Sitemonitor
         @last_change = stored_data['last_change']
       end
     else
-      puts "no previous sitecheck found. creating a new one at #{file_path}"
+      puts "no previous sitecheck found. creating a new one at #{file_path}" if @debug
       @last_check_state = 'new'
       @last_change = @last_check
       add_to_list({url: @url, url_hash: @url_hash, date: Time.now.to_i, file: @url_hash})
@@ -84,14 +84,3 @@ class Sitemonitor
     file.close
   end
 end
-
-website = ARGV[0]
-
-a = Sitemonitor.new website
-a.check_page
-
-## output here
-puts "Website to check: #{a.url}"
-puts "last checked: #{Time.at(a.last_check).to_s}"
-puts "http status: #{a.status}"
-puts "check status: #{a.last_check_state}"
