@@ -1,9 +1,9 @@
 #! /bin/env ruby
 
-require_relative 'sitemonitor'
+require_relative 'pagemonitor'
 website = ARGV[0]
 
-a = Sitemonitor.new website
+a = Pagemonitor.new website
 a.check_page
 
 ## output here

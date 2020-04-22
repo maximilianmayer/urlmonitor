@@ -6,7 +6,7 @@ require 'json'
 # require 'optparse'
 #require 'optparse/uri'
 
-class Sitemonitor
+class Pagemonitor
 
   Version = 0.2.2
   attr_accessor :url
