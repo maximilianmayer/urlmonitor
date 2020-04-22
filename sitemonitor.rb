@@ -3,11 +3,12 @@
 require 'net/http'
 require 'digest'
 require 'json'
-require 'optparse'
-require 'optparse/uri'
+# require 'optparse'
+#require 'optparse/uri'
 
 class Sitemonitor
 
+  Version = 0.2.1
   attr_accessor :url
   attr_reader :url_hash
   attr_reader :checksum
