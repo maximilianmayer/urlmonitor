@@ -8,7 +8,7 @@ require 'json'
 
 class Sitemonitor
 
-  Version = 0.2.1
+  Version = 0.2.2
   attr_accessor :url
   attr_reader :url_hash
   attr_reader :checksum
@@ -73,7 +73,7 @@ class Sitemonitor
       puts "no previous sitecheck found. creating a new one at #{file_path}"
       @last_check_state = 'new'
       @last_change = @last_check
-      add_to_list({url: @url, url_hash: @url_hash, date: Time.now.to_i})
+      add_to_list({url: @url, url_hash: @url_hash, date: Time.now.to_i, file: @url_hash})
       store(data,file_path)
     end
   end
