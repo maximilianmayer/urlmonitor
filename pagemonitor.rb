@@ -35,7 +35,7 @@ class Pagemonitor
 
   def add_to_list(data={})
     unless data.empty?
-      store(data,"#{workdir}/index.json")
+      store(data,"#{workdir}/index.json","w+")
       return {message: 'success'}
     end
   end
@@ -78,8 +78,8 @@ class Pagemonitor
     end
   end
 
-  def store(data,file_path)
-    file = File.new(file_path, 'w' )
+  def store(data,file_path, mode="w")
+    file = File.new(file_path, mode )
     file.write data.to_json
     file.close
   end
