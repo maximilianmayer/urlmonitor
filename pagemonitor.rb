@@ -8,7 +8,7 @@ require 'json'
 
 class Pagemonitor
 
-  Version = 0.2.2
+  Version = '0.2.2'
   attr_accessor :url
   attr_reader :url_hash
   attr_reader :checksum
