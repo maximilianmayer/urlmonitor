@@ -57,7 +57,9 @@ class Pagemonitor
       else
         index = []
       end
+      data[:id] = index.size + 1
       index.push data
+      puts data if @debug
       puts index if @debug
       store(index,indexfile_path,"w")
       return {message: 'success'}

@@ -4,7 +4,7 @@
 require_relative 'lib/pagemonitor'
 require 'commander/import'
 program :name, 'Page monitor'
-program :version, '0.2-dev'
+program :version, '0.2.0-dev'
 program :description, 'a simple tool to watch for changes on single webpages'
 
 command :list do |c|
