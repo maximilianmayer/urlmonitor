@@ -26,7 +26,7 @@ class Pagemonitor
   # @return [Object]
   def initialize(url,debug=false)
     @url = url
-    @workdir = 'sitemon'
+    @workdir = 'pagemon'
     @url_hash = Digest::MD5.hexdigest(url)
     @debug = debug
   end
