@@ -12,8 +12,9 @@ command :list do |c|
   c.description = 'list monitored webpages'
   c.action do |_|
     a = Pagemonitor.new 'http://localhost'
+    say 'id'.ljust(6) + 'url'.ljust(60) + "Date".rjust(30)
     a.list_pages.each do |page|
-      puts [page['url'], Time.at(page['date'])].join(' - ')
+      say page['id'].to_s.ljust(6) + page['url'].ljust(60) + Time.at(page['date']).to_s.rjust(30)
     end
   end
 end
