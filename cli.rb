@@ -26,7 +26,7 @@ command :check do |c|
   c.option '--url URL', 'The url to check for changes'
   # c.option '--id ID', 'The ID of a stored url'
   c.action do |_,options|
-    a = Pagemonitor.new options.url
+    a = Urlmonitor.new options.url
     a.check_page
     print_summary(a)
   end
