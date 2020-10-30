@@ -4,15 +4,15 @@
 require_relative 'lib/urlmonitor'
 require 'commander/import'
 
-program :name, 'Page monitor'
+program :name, 'Url monitor'
 program :version, '0.2.0-dev'
-program :description, 'a simple tool to watch for changes on single webpages'
+program :description, 'a simple tool to watch for changes on single urls'
 
 command :list do |c|
   c.syntax = 'list'
   c.description = 'list monitored webpages'
   c.action do |_|
-    a = Pagemonitor.new 'http://localhost'
+    a = Urlmonitor.new 'http://localhost'
     say 'id'.ljust(6) + 'url'.ljust(60) + "Date".rjust(30)
     a.list_pages.each do |page|
       say page['id'].to_s.ljust(6) + page['url'].ljust(60) + Time.at(page['date']).to_s.rjust(30)
