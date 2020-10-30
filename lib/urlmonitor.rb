@@ -8,7 +8,7 @@ require 'nokogiri'
 # require 'optparse'
 #require 'optparse/uri'
 
-class Pagemonitor
+class Urlmonitor
 
   Version = '0.3.0-dev'
   attr_accessor :url
