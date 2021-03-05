@@ -5,7 +5,7 @@ require_relative 'lib/urlmonitor'
 require 'commander/import'
 
 program :name, 'Url monitor'
-program :version, '0.2.0-dev'
+program :version, '0.2.0'
 program :description, 'a simple tool to watch for changes on single urls'
 
 command :list do |c|
