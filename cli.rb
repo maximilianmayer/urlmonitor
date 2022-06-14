@@ -4,19 +4,16 @@
 require_relative 'lib/urlmonitor'
 require 'commander/import'
 
-program :name, 'Url monitor'
-program :version, '0.2.0'
+program :name, 'simple URL monitor'
+program :version, '0.2.1
+'
 program :description, 'a simple tool to watch for changes on single urls'
 
 command :list do |c|
   c.syntax = 'list'
   c.description = 'list monitored webpages'
   c.action do |_|
-    a = Urlmonitor.new 'http://localhost'
-    say 'id'.ljust(6) + 'url'.ljust(60) + "Date".rjust(30)
-    a.list_pages.each do |page|
-      say page['id'].to_s.ljust(6) + page['url'].ljust(60) + Time.at(page['date']).to_s.rjust(30)
-    end
+    print_list
   end
 end
 
@@ -24,19 +21,50 @@ command :check do |c|
   c.syntax = 'check <url>'
   c.description = 'check a url for changes. If not checked before, a record will be created.'
   c.option '--url URL', 'The url to check for changes'
-  # c.option '--id ID', 'The ID of a stored url'
+  c.option '--id ID', 'The ID of a stored url'
   c.action do |_,options|
-    a = Urlmonitor.new options.url
+    if options.url
+      a = Urlmonitor.new options.url
+    elsif options.id
+      puts "selected ID : #{options.id}"
+      a = Urlmonitor.new 'http://localhost'
+      urls = a.list_pages
+      res = urls.select { |x| x['id'] == options.id.to_i }.first
+      puts res
+      a.url = res['url']
+    else
+      res = print_list interactive: true
+      a = Urlmonitor.new res['url']
+    end
     a.check_page
     print_summary(a)
   end
 end
 
+command :delete do |c|
+  c.syntax = 'delete <url>'
+  c.description = 'delete a monitored url'
+  c.option '--url'
+end
+
 
 def print_summary(website)
-  puts "Website to check: #{website.url}"
-  puts "last checked: #{Time.at(website.last_check).to_s}"
-  puts "http status: #{website.status}"
-  puts "check status: #{website.last_check_state}"
-  puts "checksum: #{website.checksum}"
+  say "Website to check: #{website.url}"
+  say "last checked: #{Time.at(website.last_check).to_s}"
+  say "http status: #{website.status}"
+  say "check status: #{website.last_check_state}"
+  say "checksum: #{website.checksum}"
+end
+
+def print_list(interactive: false)
+  a = Urlmonitor.new 'http://localhost'
+  say 'id'.ljust(6) + 'url'.ljust(60) + "Date".rjust(30)
+  pages = a.list_pages
+  pages.each do |page|
+    say page['id'].to_s.ljust(6) + page['url'].ljust(60) + Time.at(page['date']).to_s.rjust(30)
+  end
+  if interactive
+    id = ask('Chose an ID: ', Integer)
+    pages.select { |x| x['id'] == id }.first
+  end
 end
