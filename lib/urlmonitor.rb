@@ -5,8 +5,7 @@ require 'digest'
 require 'json'
 require 'faraday'
 require 'nokogiri'
-# require 'optparse'
-#require 'optparse/uri'
+
 
 class Urlmonitor
 
@@ -26,7 +25,7 @@ class Urlmonitor
   # @return [Object]
   def initialize(url,debug=false)
     @url = url
-    @workdir = 'pagemon'
+    @workdir = "#{File.expand_path("~")}/.urlmonitor"
     @url_hash = Digest::MD5.hexdigest(url)
     @debug = debug
   end
@@ -43,7 +42,7 @@ class Urlmonitor
   def page_info(url_hash)
     file_path = "#{@workdir}/#{url_hash}"
     if File.exist?(file_path) # check for existing data
-      JSON.parse(File.new(file_path,'r').read)
+      JSON.load(File.new(file_path,'r').read)
     else
       return {}
     end
@@ -53,7 +52,7 @@ class Urlmonitor
     unless data.empty?
       indexfile_path = "#{@workdir}/index.json"
       if File.exist?(indexfile_path)
-        index = JSON.parse(File.new(indexfile_path, 'r').read)
+        index = JSON.load(File.new(indexfile_path, 'r').read)
       else
         index = []
       end

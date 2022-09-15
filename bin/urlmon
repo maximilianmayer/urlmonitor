@@ -1,13 +1,28 @@
 #! /bin/env ruby
 #
 
-require_relative 'lib/urlmonitor'
+require_relative '../lib/urlmonitor'
 require 'commander/import'
 
 program :name, 'simple URL monitor'
-program :version, '0.2.1
-'
+program :version, '0.3.0-dev'
 program :description, 'a simple tool to watch for changes on single urls'
+
+urlmon = Urlmonitor.new 'http://localhost'
+
+command :init do |c|
+  c.syntax = 'init'
+  c.description =  'initialize urlmonitor configuration'
+  c.action do |x|
+    workdir = urlmon.workdir
+    unless Dir.exist?(workdir)
+      Dir.mkdir(workdir)
+      say "created work directory: #{File.expand_path(workdir)}"
+      File.new("#{workdir}/index.json",'w')
+      say "created index file: #{File.expand_path(workdir)}/index.json"
+    end
+  end
+end
 
 command :list do |c|
   c.syntax = 'list'
