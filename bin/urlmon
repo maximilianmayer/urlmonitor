@@ -39,18 +39,15 @@ command :check do |c|
   c.option '--id ID', 'The ID of a stored url'
   c.action do |_,options|
     if options.url
-      a = Urlmonitor.new options.url
+      url = Urlmonitor.new options.url
     elsif options.id
       puts "selected ID : #{options.id}"
-      a = Urlmonitor.new 'http://localhost'
-      urls = a.list_pages
-      res = urls.select { |x| x['id'] == options.id.to_i }.first
-      puts res
-      a.url = res['url']
+      url = url_by_id options.id
     else
       res = print_list interactive: true
-      a = Urlmonitor.new res['url']
+      url = res['url']
     end
+    a = Urlmonitor.new url
     a.check_page
     print_summary(a)
   end
@@ -82,4 +79,13 @@ def print_list(interactive: false)
     id = ask('Chose an ID: ', Integer)
     pages.select { |x| x['id'] == id }.first
   end
+end
+
+
+# @return [String]
+def url_by_id(id)
+  a = Urlmonitor.new 'http://localhost'
+  urls = a.list_pages
+  res = urls.select { |x| x['id'] == id.to_i }.first
+  res['url']
 end
