@@ -4,7 +4,7 @@ require 'urlmonitor'
 
 
 Gem::Specification.new do |s|
-  s.name                = "urlmonitor"
+  s.name              = "urlmonitor"
   s.version           = Urlmonitor::Version
   s.summary           = "pretty simple url monitor"
   s.description       = "A simple tool to monitor content changes on URLs"

@@ -39,7 +39,7 @@ command :check do |c|
   c.option '--id ID', 'The ID of a stored url'
   c.action do |_,options|
     if options.url
-      url = Urlmonitor.new options.url
+      url = options.url
     elsif options.id
       puts "selected ID : #{options.id}"
       url = url_by_id options.id
@@ -54,7 +54,7 @@ command :check do |c|
 end
 
 command :delete do |c|
-  c.syntax = 'delete <url>'
+  c.syntax = 'delete --url <url>'
   c.description = 'delete a monitored url'
   c.option '--url'
 end
