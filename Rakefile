@@ -6,7 +6,7 @@ require "urlmonitor"
 
 LOCAL_IMAGE_NAME="/"
 #UPSTREAM_IMAGE_NAME="gitlab.codecentric.de:4567/apm/instana-apiclient-ruby"
-BUILD_VERSION=InstanaAPI::VERSION
+BUILD_VERSION=Urlmonitor::Version
 
 
 desc "install dependencies"
@@ -22,7 +22,7 @@ namespace :doc do
 
   YARD::Rake::YardocTask.new("generate") do |t|
     t.files = ["lib/"] # optional
-    t.options = ["--title Instana API client"]
+    t.options = ["--title Simple Url Monitor"]
     t.stats_options = ['--list-undoc']         # optional
   end
 end
