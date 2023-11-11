@@ -6,9 +6,10 @@ require 'json'
 require 'faraday'
 require 'nokogiri'
 
-
+# core class 
 class Urlmonitor
 
+  # Version string
   Version = '0.3.0-dev'
   attr_accessor :url
   attr_reader :url_hash
@@ -30,15 +31,20 @@ class Urlmonitor
     @debug = debug
   end
 
+  # @param [Strinf] dir
+  # @return [Dir]
   def prepare(dir)
     Dir.mkdir dir unless File.directory?(dir)
   end
 
+  # @return [Array]
   def list_pages
     file = File.new("#{@workdir}/index.json",'r' )
     JSON.parse(file.read)
   end
 
+  # @param [String] url_hash
+  # @return [Hash]
   def page_info(url_hash)
     file_path = "#{@workdir}/#{url_hash}"
     if File.exist?(file_path) # check for existing data
@@ -48,6 +54,7 @@ class Urlmonitor
     end
   end
 
+  # @return [Hash]
   def add_to_list(data={})
     unless data.empty?
       indexfile_path = "#{@workdir}/index.json"
@@ -65,6 +72,7 @@ class Urlmonitor
     end
   end
 
+  # @return [Object]
   def check_page
     #res = Net::HTTP.get_response(URI(@url))
     res = Faraday.get(@url)
@@ -106,6 +114,10 @@ class Urlmonitor
     end
   end
 
+  # @param [Hash,Array] data 
+  # @param [String] file_path  
+  # @param [String] mode 
+  # @return [File]
   def store(data,file_path, mode="a")
     file = File.new(file_path, mode )
     file.write data.to_json
