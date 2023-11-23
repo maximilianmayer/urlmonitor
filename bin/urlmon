@@ -10,6 +10,8 @@ program :description, 'a simple tool to watch for changes on single urls'
 
 urlmon = Urlmonitor.new 'http://localhost'
 
+default_command :list 
+
 command :init do |c|
   c.syntax = 'init'
   c.description =  'initialize urlmonitor configuration'
@@ -28,6 +30,7 @@ command :list do |c|
   c.syntax = 'list'
   c.description = 'list monitored webpages'
   c.action do |_|
+    print_header
     print_list
   end
 end
@@ -70,10 +73,10 @@ end
 
 def print_list(interactive: false)
   a = Urlmonitor.new 'http://localhost'
-  say 'id'.ljust(6) + 'url'.ljust(60) + "Date".rjust(30)
+  say 'id'.ljust(6) + 'url'.ljust(80) + "Date".rjust(30)
   pages = a.list_pages
   pages.each do |page|
-    say page['id'].to_s.ljust(6) + page['url'].ljust(60) + Time.at(page['date']).to_s.rjust(30)
+    say page['id'].to_s.ljust(6) + page['url'].ljust(80) + Time.at(page['date']).to_s.rjust(30)
   end
   if interactive
     id = ask('Chose an ID: ', Integer)
@@ -81,6 +84,9 @@ def print_list(interactive: false)
   end
 end
 
+def print_header
+  say "#{program :name} - v#{program :version}"
+end
 
 # @return [String]
 def url_by_id(id)

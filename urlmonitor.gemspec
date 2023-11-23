@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.email             = "mayer.maximilian@gmail.com"
   s.homepage          = "https://github.com/maximilianmayer/urlmonitor"
   s.files             = `git ls-files lib`.split("\n")
-  s.extra_rdoc_files  = ['Readme.md']
+  s.extra_rdoc_files  = ['README.md']
   s.require_paths     = ["lib"]
   s.metadata          = {
     "source_code_uri" => s.homepage,
@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   }
   s.required_ruby_version     = ">= 2.6.0"
 
-  s.add_runtime_dependency 'httparty', '~> 0.18', '>= 0.18.0'
   s.add_runtime_dependency 'commander', "~> 4"
+  s.add_runtime_dependency 'faraday', "~> 2"
   s.executables   << 'urlmon'
 end
