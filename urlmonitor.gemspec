@@ -25,5 +25,6 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'commander', "~> 4"
   s.add_runtime_dependency 'faraday', "~> 2"
+  s.add_runtime_dependency 'nokogiri', ">= 1.10"
   s.executables   << 'urlmon'
 end
