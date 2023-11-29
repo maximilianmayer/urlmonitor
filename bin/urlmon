@@ -66,7 +66,7 @@ end
 
 def print_summary(website)
   say ">>>"
-  say "Website to check: #{website.url}"
+  say "URL to check: #{website.url}"
   say "last checked: #{Time.at(website.last_check).to_s}"
   say "http status: #{website.status}"
   say "check status: #{website.last_check_state}"
@@ -86,7 +86,11 @@ def print_list(interactive: false)
       p_data['last_check'] = 0
     end
     time_diff = Time.at(Time.now  - Time.at(p_data['last_check'])).utc
+    #if time_diff > 86400 ## 1d 
+    
     duration = time_diff.strftime("%Hh %Mm %Ss")
+    
+
     
     say page['id'].to_s.ljust(6) + (Time.at(p_data['last_check']).to_s + '  (' + duration + ')' ).ljust(44) + page['url'] unless page['id'] == 0
   end
@@ -108,4 +112,5 @@ def url_by_id(id)
   res['url']
 end
 
+# print header in any case :>
 print_header
